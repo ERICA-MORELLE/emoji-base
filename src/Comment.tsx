@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Comment = () => {
   // État pour le texte du commentaire
@@ -68,6 +69,9 @@ const Comment = () => {
           </div>
         </div>
       </div>
+      < Link to ="/Test" > 
+      <button className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"> Modalclass</button> 
+      </Link>
     </div>
   );
 }
