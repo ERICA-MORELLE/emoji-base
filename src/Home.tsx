@@ -1,40 +1,50 @@
-import React from "react";
-import { Link } from "react-router-dom";
-const emojis = [
-  { emoji: "😀", description: "Grinning Face" },
-  { emoji: "😂", description: "Face with Tears of Joy" },
-  { emoji: "😍", description: "Heart Eyes" },
-  { emoji: "😎", description: "Smiling Face with Sunglasses" },
-  { emoji: "🥺", description: "Pleading Face" },
-  { emoji: "💀", description: "Skull" },
-  { emoji: "🔥", description: "Fire" },
-  { emoji: "💩", description: "Pile of Poo" },
+// src/components/Home.tsx
+
+import Admin from "./component/Admin";
+import Feedback from "./component/Feedback";
+import Produit from "./component/Produit";
+
+interface FeedbackType {
+    emoji: string;
+    comment: string;
+}
+
+interface HomeProps {
+    feedbacks: FeedbackType[];
+    setFeedbacks: React.Dispatch<React.SetStateAction<FeedbackType[]>>;
+}
+
+
+const products = [
+    { id: 1, name: "Produit 1", description: "Description du produit 1", imageUrl: "https://via.placeholder.com/150" },
+    { id: 2, name: "Produit 2", description: "Description du produit 2", imageUrl: "https://via.placeholder.com/150" },
+    { id: 3, name: "Produit 3", description: "Description du produit 3", imageUrl: "https://via.placeholder.com/150" },
 ];
 
-function Home() {
-  return (
-    <div className="min-h-screen bg-red-100 flex justify-center items-center p-4">
-      <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">Emojis et and their descriptions</h1>
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {emojis.map((item, index) => (
-            <div
-              key={index}
-              className="bg-blue-50 p-4 rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out"
-            >
-              <div className="text-6xl text-center">{item.emoji}</div>
-              <p className="text-center text-lg font-medium text-gray-700 mt-2">{item.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-      <Link to="/comment">
-  <button className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
-    Add comment
-  </button>
-</Link>
+const Home: React.FC<HomeProps> = ({ feedbacks, setFeedbacks }) => {
+    const handleDeleteFeedback = (index: number) => {
+        const updatedFeedbacks = feedbacks.filter((_, i) => i !== index);
+        setFeedbacks(updatedFeedbacks);
+    };
 
-    </div>
-  );
-}
-export default Home
+    return (
+        <div className="min-h-screen bg-red-100 flex flex-col items-center">
+            <h1 className="text-4xl font-bold my-8">Emoji Feedback Board</h1>
+            {products.map(product => (
+                <Produit
+                    key={product.id} 
+                    id={product.id} 
+                    name={product.name} 
+                    description={product.description} 
+                    imageUrl={product.imageUrl} 
+                    feedbacks={feedbacks} 
+                    setFeedbacks={setFeedbacks} 
+                />
+            ))}
+            <Feedback feedbacks={feedbacks} setFeedbacks={setFeedbacks} />
+            <Admin feedbacks={feedbacks} onDeleteFeedback={handleDeleteFeedback} />
+        </div>
+    );
+};
+
+export default Home;
