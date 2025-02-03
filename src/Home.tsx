@@ -17,8 +17,12 @@ interface HomeProps {
 
 const products = [
     { id: 1, name: "Produit 1", description: "Description du produit 1", imageUrl: "https://via.placeholder.com/150" },
-    { id: 2, name: "Produit 2", description: "Description du produit 2", imageUrl: "https://via.placeholder.com/150" },
+    { id: 2, name: "Produit 2", description: "Description du produit 2 ", imageUrl: "https://via.placeholder.com/150" },
     { id: 3, name: "Produit 3", description: "Description du produit 3", imageUrl: "https://via.placeholder.com/150" },
+    { id: 4, name: "Produit 4", description: "Description du produit 4", imageUrl: "https://via.placeholder.com/150" }, 
+    { id: 5, name: "Produit 5", description: "Description du produit 5", imageUrl: "https://via.placeholder.com/150" },
+    {id: 6,name:"produit 6",description: "description du produit 6",imageUrl: }
+
 ];
 
 const Home: React.FC<HomeProps> = ({ feedbacks, setFeedbacks }) => {
@@ -28,7 +32,10 @@ const Home: React.FC<HomeProps> = ({ feedbacks, setFeedbacks }) => {
     };
 
     return (
-        <div className="min-h-screen bg-red-100 flex flex-col items-center">
+        <div className="min-h-screen bg-red-500 flex items-center">
+            <div className="col-span-1 bg-white p-4 rounded-lg shadow-md grid grid-cols-6">
+                <h2 className="text-2xl font-bold mb-4">Liste des produits</h2>
+            
             <h1 className="text-4xl font-bold my-8">Emoji Feedback Board</h1>
             {products.map(product => (
                 <Produit
@@ -41,6 +48,7 @@ const Home: React.FC<HomeProps> = ({ feedbacks, setFeedbacks }) => {
                     setFeedbacks={setFeedbacks} 
                 />
             ))}
+            </div>
             <Feedback feedbacks={feedbacks} setFeedbacks={setFeedbacks} />
             <Admin feedbacks={feedbacks} onDeleteFeedback={handleDeleteFeedback} />
         </div>
